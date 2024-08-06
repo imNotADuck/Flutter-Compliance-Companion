@@ -44,3 +44,5 @@ app.*.map.json
 
 node_modules
 .amplify
+google-services.json
+GoogleService-Info.plist
