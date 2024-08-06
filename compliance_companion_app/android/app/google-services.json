@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "739431043561",
+    "project_id": "flutter-task-manager-df8b1",
+    "storage_bucket": "flutter-task-manager-df8b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739431043561:android:7ec1c352f5043bef78fb78",
+        "android_client_info": {
+          "package_name": "com.example.compliance_companion.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739431043561-bthfcaji0uk3kgsv56r1g8dpkp2nvsq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsLcB0TJ5pKgSZzRH4FK2w4A0IikappT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739431043561-bthfcaji0uk3kgsv56r1g8dpkp2nvsq8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "739431043561-b70ikrvirpqeq24dgpr1hqeaf5ljgetq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.complianceCompanionApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739431043561:android:5cdc92ebcffe473878fb78",
+        "android_client_info": {
+          "package_name": "com.example.compliance_companion_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739431043561-bthfcaji0uk3kgsv56r1g8dpkp2nvsq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsLcB0TJ5pKgSZzRH4FK2w4A0IikappT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739431043561-bthfcaji0uk3kgsv56r1g8dpkp2nvsq8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "739431043561-b70ikrvirpqeq24dgpr1hqeaf5ljgetq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.complianceCompanionApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
