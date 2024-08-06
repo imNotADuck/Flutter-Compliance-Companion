@@ -1,4 +1,5 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:compliance_companion_app/widgets/tool_bar.dart';
 import 'package:flutter/material.dart';
 import '../widgets/tool_bar.dart';
 import '../widgets/task_list.dart';

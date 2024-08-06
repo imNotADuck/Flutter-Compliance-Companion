@@ -44,4 +44,4 @@ app.*.map.json
 
 node_modules
 .amplify
-
+firebase_options.dart

@@ -1,10 +1,9 @@
-// lib/widgets/tool_bar.dart
+// // lib/widgets/tool_bar.dart
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/task_provider.dart';
 import '../models/task.dart';
-
 
 /// Some keys used for testing
 final addTodoKey = UniqueKey();
@@ -13,7 +12,7 @@ final inProgressFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
 final allFilterKey = UniqueKey();
 
-/// A toolbar widget that allows users to filter tasks by their status.
+// /// A toolbar widget that allows users to filter tasks by their status.
 class ToolBar extends StatelessWidget {
   const ToolBar({super.key});
 
@@ -23,11 +22,11 @@ class ToolBar extends StatelessWidget {
     final selectedStatus = taskProvider.filterStatus;
 
     Color? textColorFor(TaskStatus value) {
-          return selectedStatus == value ? Colors.blue : Colors.black;
+          return selectedStatus == value ? const Color.fromARGB(255, 54, 30, 96) : Colors.white;
         }
 
     return Material(
-      color: Colors.white,
+      color: Color.fromARGB(255, 219, 176, 238),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -88,3 +87,5 @@ class ToolBar extends StatelessWidget {
     );
   }
 }
+
+
