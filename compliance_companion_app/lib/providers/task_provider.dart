@@ -87,4 +87,14 @@ class TaskProvider with ChangeNotifier {
     _filterStatus = status;
     notifyListeners();
   }
+
+  void addTask(Task task) {
+    _tasks.add(task);
+    notifyListeners();
+  }
+
+  void deleteTask(int taskId) {
+    _tasks.removeWhere((task) => task.id == taskId);
+    notifyListeners();
+  }
 }

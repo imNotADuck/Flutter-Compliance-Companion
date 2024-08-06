@@ -1,7 +1,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:compliance_companion_app/screens/task_detail_screen.dart';
 import 'package:compliance_companion_app/widgets/tool_bar.dart';
 import 'package:flutter/material.dart';
-import '../widgets/tool_bar.dart';
 import '../widgets/task_list.dart';
 
 /// A screen that displays a list of tasks.
@@ -22,6 +22,17 @@ class TaskListScreen extends StatelessWidget {
           ),
           SignOutButton(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TaskDetailScreen(taskId: null),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

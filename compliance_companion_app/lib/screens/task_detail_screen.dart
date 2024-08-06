@@ -1,15 +1,13 @@
-import 'package:compliance_companion_app/screens/task_status_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../models/task.dart';
 import '../providers/task_provider.dart';
 
 class TaskDetailScreen extends StatefulWidget {
-  final int taskId;
+  final int? taskId;
 
-  TaskDetailScreen({super.key, required this.taskId});
+  const TaskDetailScreen({super.key, required this.taskId});
 
   @override
   _TaskDetailScreenState createState() => _TaskDetailScreenState();
@@ -24,32 +22,41 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   @override
   void initState() {
     super.initState();
-    final task = Provider.of<TaskProvider>(context, listen: false)
-        .getTaskById(widget.taskId);
-    nameController = TextEditingController(text: task.title);
-    descriptionController = TextEditingController(text: task.description);
-    dueDate = task.dueDate;
-    status = task.status;
+    if (widget.taskId != null) {
+      final task = Provider.of<TaskProvider>(context, listen: false).getTaskById(widget.taskId!);
+      nameController = TextEditingController(text: task.title);
+      descriptionController = TextEditingController(text: task.description);
+      dueDate = task.dueDate;
+      status = task.status;
+    } else {
+      nameController = TextEditingController();
+      descriptionController = TextEditingController();
+      dueDate = DateTime.now();
+      status = TaskStatus.pending;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Task Details'),
+        title: widget.taskId != null ? const Text('Task Details') : const Text('Add New Task'),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              final updatedTask = Task(
-                id: widget.taskId,
+              final newTask = Task(
+                id: widget.taskId ?? DateTime.now().millisecondsSinceEpoch,
                 title: nameController.text,
                 description: descriptionController.text,
                 dueDate: dueDate,
                 status: status,
               );
-              Provider.of<TaskProvider>(context, listen: false)
-                  .updateTask(updatedTask);
+              if (widget.taskId == null) {
+                Provider.of<TaskProvider>(context, listen: false).addTask(newTask);
+              } else {
+                Provider.of<TaskProvider>(context, listen: false).updateTask(newTask);
+              }
               Navigator.pop(context);
             },
           ),
@@ -68,8 +75,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               decoration: const InputDecoration(labelText: 'Description'),
             ),
             ListTile(
-              title:
-                  Text('Due Date: ${DateFormat('dd-MM-yyyy').format(dueDate)}'),
+              title: Text('Due Date: ${DateFormat('dd-MM-yyyy').format(dueDate)}'),
               trailing: const Icon(Icons.calendar_today),
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
@@ -89,12 +95,6 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               title: Text('Status: ${status.name}'),
               trailing: const Icon(Icons.arrow_forward),
               onTap: () async {
-                // final selectedStatus = await Navigator.push<TaskStatus>(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => TaskStatusSelectionScreen(currentStatus: status),
-                //   ),
-                // );
                 final selectedStatus = await Navigator.pushNamed(
                   context,
                   '/taskStatusSelection',
@@ -113,3 +113,4 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     );
   }
 }
+
