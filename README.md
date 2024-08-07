@@ -111,7 +111,8 @@ Objective: Implement a notification system that alerts users one day before a to
 
 **1. Local Notifications Approach**
 
-Overview: This approach uses the device itself to schedule and send notifications without relying on a backend server.
+This approach uses the device itself to schedule and send notifications without relying on a backend server.
+
 **Steps:**
 
 1. Use Local Notifications Library: Integrate a local notifications library like flutter_local_notifications into your Flutter app.
@@ -128,7 +129,7 @@ No Cross-Device Sync: Notifications are limited to the device where the to-do wa
 
 **2. Cloud Notifications Approach**
 
-Overview: This approach leverages cloud services to schedule and send notifications, ensuring they are delivered reliably even if the app is not running.
+This approach leverages cloud services to schedule and send notifications, ensuring they are delivered reliably even if the app is not running.
  
 **Steps:**
 1. Store To-Do Items: Save to-do items in a database like Firebase Firestore.
