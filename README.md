@@ -1,32 +1,38 @@
-# Compliance Companion App
+# Flutter Compliance Companion
 
-## Project Overview
+Welcome to the Flutter Compliance Companion! This project is a task manager app designed to help users track and manage their regulatory compliance tasks. The app uses Firebase for data storage and AWS Amplify for authentication.
 
-The **Compliance Companion App** is a task manager application built with Flutter. It helps users track and manage their regulatory compliance tasks efficiently. The app provides features to create, view, and manage tasks, ensuring users stay on top of their compliance requirements.
+## Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Firebase Configuration](#firebase-configuration)
+  - [AWS Configuration](#aws-configuration)
+- [Running the App](#running-the-app)
+- [Challenges Encountered](#challenges-encountered)
+- [Future Work](#future-work)
+- [Contributing](#contributing)
+- [License](#license)
 
-### Features
+## Features
+- View and manage compliance tasks
+- Mark tasks as complete
+- Authentication with AWS Amplify
+- Data storage with Firebase Firestore
 
-- **Task Management**: Create, view, and update tasks.
-- **Task Status**: Mark tasks as complete / pending / in progress.
-- **User Authentication**: Secure login and registration (integrated with AWS Cognito).
-- **Secured Data Storage**: Secured data store with Cloud Firestore, fully intergated with Firebase Back-end.
-- **Notification**: Use of Firebase Cloud Messaging for sending a reminder notification when a task is due soon. (not implemented)
-
-## Setup Instructions
+## Getting Started
 
 ### Prerequisites
+- Flutter SDK
+- Firebase account
+- AWS account
+- Android Studio or Visual Studio Code
+- Android emulator
 
-- Flutter SDK installed on your machine.
-- An active Firebase project.
-- AWS account (if using AWS services).
+### Installation
 
-
-## Additional Notes
-
-- Ensure all Firebase and AWS configurations are correctly set up before running the app.
-- For detailed Firebase setup instructions, refer to the [Firebase documentation](https://firebase.google.com/docs/flutter/setup).
-- For AWS configuration, consult the [AWS SDK for Flutter documentation](https://aws.amazon.com/flutter/).
-
-Feel free to contribute to the project or open issues if you encounter any problems.
-
-
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/imNotADuck/Flutter-Compliance-Companion.git
+   cd Flutter-Compliance-Companion
