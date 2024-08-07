@@ -152,11 +152,6 @@ class _MyAppState extends State<MyApp> {
               return MaterialPageRoute(
                 builder: (context) => const TaskListScreen(),
               );
-            case '/taskDetail':
-              final taskId = settings.arguments as int;
-              return MaterialPageRoute(
-                builder: (context) => TaskDetailScreen(taskId: taskId),
-              );
             case '/taskStatusSelection':
               final currentStatus = settings.arguments as TaskStatus;
               return MaterialPageRoute(

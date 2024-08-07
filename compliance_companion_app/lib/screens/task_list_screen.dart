@@ -6,6 +6,7 @@ import 'package:compliance_companion_app/data/storage_manager.dart';
 import 'package:compliance_companion_app/screens/task_detail_screen.dart';
 import 'package:compliance_companion_app/widgets/tool_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/task_list.dart';
 
 /// A screen that displays a list of tasks.
@@ -18,7 +19,7 @@ class TaskListScreen extends StatefulWidget {
 
 class _TaskListScreenState extends State<TaskListScreen> {
   @override
-  void initState(){
+  void initState() {
     _createAuthenticatedUser();
     super.initState();
   }
@@ -32,39 +33,59 @@ class _TaskListScreenState extends State<TaskListScreen> {
 
       ///Add user to FirestoreDB
       await FirestoreDb().createUser(uid);
-
       return true;
     }
 
     return true;
   }
 
+  Future<String?> getUserIdFromPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tasks Manager'),
-      ),
-      body: const Column(
-        children: [
-          ToolBar(),
-          Expanded(
-            child: TaskList(),
-          ),
-          SignOutButton(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TaskDetailScreen(taskId: null),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
+    return FutureBuilder<String?>(
+        future: getUserIdFromPreferences(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: Text('User ID not found'));
+          } else {
+            final userId = snapshot.data!;
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Tasks Manager'),
+              ),
+              body:  Column(
+                children: [
+                  const ToolBar(),
+                  Expanded(
+                    child: TaskList(userId: userId,),
+                  ),
+                  const SignOutButton(),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskDetailScreen(
+                        userId: userId,
+                        taskId: null,
+                      ),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.add),
+              ),
+            );
+          }
+        });
   }
 }

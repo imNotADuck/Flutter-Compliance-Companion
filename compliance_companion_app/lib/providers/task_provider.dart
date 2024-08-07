@@ -5,31 +5,33 @@ import '../models/task.dart';
 
 /// A provider class for managing and notifying changes in the list of tasks.
 class TaskProvider with ChangeNotifier {
-  // A list of tasks to be managed by the provider.
-  final List<Task> _tasks = [
+
+
+  // A list mock Tasks hardcoded initially, replaced when get task succesfully from DB
+  List<Task> _tasks = [
     Task(
-      id: 1,
+      id: '1',
       title: 'Task 1',
       dueDate: DateTime.now().add(const Duration(days: 1)),
       status: TaskStatus.pending,
       description: 'Description 1'
     ),
     Task(
-      id: 2,
+      id: '2',
       title: 'Task 2',
       dueDate: DateTime.now().add(const Duration(days: 2)),
       status: TaskStatus.pending,
       description: 'Description 2'
     ),
     Task(
-      id: 3,
+      id: '3',
       title: 'Task 3',
       dueDate: DateTime.now().add(const Duration(days: 3)),
       status: TaskStatus.pending,
       description: 'Description 3'
     ),
     Task(
-      id: 4,
+      id: '4',
       title: 'Task 4',
       dueDate: DateTime.now().add(const Duration(days: 4)),
       status: TaskStatus.pending,
@@ -43,8 +45,14 @@ class TaskProvider with ChangeNotifier {
   /// Getter to retrieve all tasks.
   List<Task> get allTasks => _tasks;
 
+  /// Setter to update all tasks. When the back-end connects
+  set allTasks(List<Task> tasks) {
+    _tasks = tasks;
+    // notifyListeners();
+  }
+
   /// Method to get a task by its ID.
-  Task getTaskById(int id) {
+  Task getTaskById(String id) {
     return _tasks.firstWhere((task) => task.id == id);
   }
 
@@ -93,7 +101,7 @@ class TaskProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(int taskId) {
+  void deleteTask(String taskId) {
     _tasks.removeWhere((task) => task.id == taskId);
     notifyListeners();
   }
