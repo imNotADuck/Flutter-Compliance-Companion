@@ -35,4 +35,10 @@ Welcome to the Flutter Compliance Companion! This project is a task manager app 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/imNotADuck/Flutter-Compliance-Companion.git
-   cd Flutter-Compliance-Companion
+   cd Flutter-Compliance-Companion/compliance_companion_app
+
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   
+   
