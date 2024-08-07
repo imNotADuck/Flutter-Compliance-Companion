@@ -41,6 +41,7 @@ Welcome to the Flutter Compliance Companion! This project is a task manager app 
    ```bash
    flutter pub get
 
+
 ### Firebase Configuration
 
 1. **Create a Firebase project:**
@@ -76,4 +77,14 @@ Welcome to the Flutter Compliance Companion! This project is a task manager app 
 2. **Add Authentication:**
    ```bash
    amplify add auth
-   
+- Follow the prompts to configure authentication.
+
+3. Push the changes to AWS:
+   ```bash
+   amplify add auth
+
+### Running the App
+
+  Run the app on an Android emulator
+  ```bash
+  flutter run
