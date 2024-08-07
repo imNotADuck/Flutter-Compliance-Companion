@@ -81,12 +81,14 @@ Welcome to the Flutter Compliance Companion! This project is a task manager app 
 2. **Add Authentication:**
    ```bash
    amplify add auth
+   ```
 - Follow the prompts to configure authentication.
 
-3. Push the changes to AWS:
+3. **Push the changes to AWS:**
    ```bash
    amplify add auth
-
+   ```
+   
 <a id="running-the-app"></a>
 ### Running the App
 
