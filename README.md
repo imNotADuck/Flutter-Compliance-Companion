@@ -110,8 +110,10 @@ Welcome to the Flutter Compliance Companion! This project is a task manager app 
 Objective: Implement a notification system that alerts users one day before a to-do item's deadline.
 
 **1. Local Notifications Approach**
+
 Overview: This approach uses the device itself to schedule and send notifications without relying on a backend server.
 **Steps:**
+
 1. Use Local Notifications Library: Integrate a local notifications library like flutter_local_notifications into your Flutter app.
 2. Schedule Notifications: When a user creates a to-do item, store it in local device storage, schedule a local notification to be triggered one day before the deadline.
 3. Handle Background Tasks: Use a background task library like workmanager to periodically check for upcoming deadlines and schedule notifications accordingly.
@@ -125,7 +127,9 @@ Limited Reliability: Notifications might not be as reliable due to device limita
 No Cross-Device Sync: Notifications are limited to the device where the to-do was created.
 
 **2. Cloud Notifications Approach**
+
 Overview: This approach leverages cloud services to schedule and send notifications, ensuring they are delivered reliably even if the app is not running.
+ 
 **Steps:**
 1. Store To-Do Items: Save to-do items in a database like Firebase Firestore.
 2. Use Cloud Functions: Implement Firebase Cloud Functions to monitor the database and schedule notifications to be sent one day before deadlines.
