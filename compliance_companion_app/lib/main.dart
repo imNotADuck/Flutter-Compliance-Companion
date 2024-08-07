@@ -136,16 +136,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Authenticator(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         builder: Authenticator.builder(),
         title: 'Compliance Companion App',
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
-        home: Provider.of<AuthState>(context, listen: false).isSignedIn
-            ? const TaskListScreen()
-            : const AuthenticatedView(
-                child: Text("Authenticated View"),
-              ),
+        home: const TaskListScreen(),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
