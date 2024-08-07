@@ -3,7 +3,11 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:compliance_companion_app/auth/auth_manager.dart';
+import 'package:compliance_companion_app/data/firestore_db.dart';
+import 'package:compliance_companion_app/data/storage_manager.dart';
 import 'package:compliance_companion_app/models/task.dart';
+import 'package:compliance_companion_app/providers/auth_provider.dart';
 import 'package:compliance_companion_app/screens/task_status_selection_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +15,7 @@ import 'package:provider/provider.dart';
 import './providers/task_provider.dart';
 import './screens/task_list_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'amplifyconfiguration.dart';
+import 'auth/amplify_auth_config.dart';
 import 'firebase_options.dart';
 import 'screens/task_detail_screen.dart';
 
@@ -59,12 +63,14 @@ void main() async {
   _firebaseMessagingSetups();
 
   ///Amplify setups
-  _configureAmplify();
+  await _configureAmplify();
 
   runApp(
-    // Wrap the app in a ChangeNotifierProvider to provide the TaskProvider to the widget tree.
-    ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthState()),
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -81,8 +87,50 @@ Future<void> _configureAmplify() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _amplifyAuthComplete = false;
+
+  Future<void> _getAuthStatus() async {
+    var _auth = Amplify.Auth;
+    _auth.fetchAuthSession().then((val) {
+      setState(() {
+        _amplifyAuthComplete = true;
+      });
+      Provider.of<AuthState>(context, listen: false)
+          .setSignedIn(val.isSignedIn);
+    });
+  }
+
+  Future<void> _createAuthenticatedUser() async {
+    ///Get and save authenticated userId to local storage
+    final uid = await AuthManager.getCurrentUserId();
+    if (uid != null) {
+      await StorageManager.storeUserId(uid);
+      safePrint('uid saved to device: $uid');
+
+      ///Add user to FirestoreDB
+      await FirestoreDb().createUser(uid);
+    }
+  }
+
+  @override
+  void initState() {
+    _getAuthStatus();
+    _createAuthenticatedUser();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +141,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
-        initialRoute: '/',
+        home: Provider.of<AuthState>(context, listen: false).isSignedIn
+            ? const TaskListScreen()
+            : const AuthenticatedView(
+                child: Text("Authenticated View"),
+              ),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
@@ -115,7 +167,6 @@ class MyApp extends StatelessWidget {
               return null;
           }
         },
-        // home: const TaskListScreen(),
       ),
     );
   }
